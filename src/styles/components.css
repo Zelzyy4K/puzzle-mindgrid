@@ -1,0 +1,49 @@
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background-color: #C8A358;
+  color: #0F100F;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  background-color: #D4B27A;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: #E8E8E2;
+  font-weight: 600;
+  font-size: 16px;
+  border: 1px solid #30332F;
+  border-radius: 8px;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0, 1);
+}
+
+.btn-secondary:hover {
+  background-color: #1E201D;
+  border-color: #40433B;
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
