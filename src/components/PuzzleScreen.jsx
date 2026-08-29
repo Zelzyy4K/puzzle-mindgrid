@@ -5,6 +5,7 @@ import Timer from '../components/Timer';
 import HintPanel from '../components/HintPanel';
 import ScoreDisplay from '../components/ScoreDisplay';
 import PuzzleToolbar from '../components/PuzzleToolbar';
+import PatternVisualizer from '../components/PatternVisualizer';
 import { getPuzzleById } from '../data';
 import { getEngine } from '../engine/puzzleEngine';
 import { loadData, updateProgress, addHistory, recordSolve } from '../utils/storage';
@@ -70,7 +71,7 @@ export default function PuzzleScreen() {
   const handleSubmit = () => {
     if (!engine || !puzzle || !selectedAnswer) return;
 
-    const isCorrect = selectedAnswer === puzzle.solution;
+    const isCorrect = JSON.stringify(selectedAnswer) === JSON.stringify(puzzle.solution);
 
     if (isCorrect) {
       const finalScore = engine.getScore(puzzle.difficulty);
@@ -210,23 +211,24 @@ export default function PuzzleScreen() {
 
             {puzzle.type === 'pattern' && (
               <div className="space-y-4">
-                <div className="text-center text-secondary mb-4">
-                  Pattern visualization area
-                </div>
+                <PatternVisualizer data={puzzle.data} />
                 <div className="grid grid-cols-2 gap-2">
-                  {puzzle.data.options?.map((option, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSelectAnswer(option)}
-                      className={`p-3 rounded border transition-colors ${
-                        selectedAnswer === option
-                          ? 'bg-accent text-background border-accent'
-                          : 'bg-surface border-border hover:border-accent text-primary'
-                      }`}
-                    >
-                      {JSON.stringify(option).substring(0, 30)}
-                    </button>
-                  ))}
+                  {puzzle.data.options?.map((option, idx) => {
+                    const isSelected = JSON.stringify(selectedAnswer) === JSON.stringify(option);
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => handleSelectAnswer(option)}
+                        className={`p-2 rounded border transition-colors ${
+                          isSelected
+                            ? 'bg-accent text-background border-accent'
+                            : 'bg-surface border-border hover:border-accent text-primary'
+                        }`}
+                      >
+                        <PatternVisualizer data={{ type: puzzle.data.type, options: [option] }} />
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
